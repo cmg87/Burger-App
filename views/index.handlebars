@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="jumbotron">Eat-Da-Burger</div>
+    <div class="row">
+        <div class="col-xs-5">
+            <ul>
+                {{#each burgers}}
+                    {{#unless this.devoured}}
+                       <li><span>{{this.burger_name}} <button>Devour!</button></span></li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-5">
+            <ul>
+                {{#each burgers}}
+                    {{#if this.devoured}}
+                    <li>{{this.burger_name}}</li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
