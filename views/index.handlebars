@@ -5,7 +5,7 @@
             <ul>
                 {{#each burgers}}
                     {{#unless this.devoured}}
-                       <li><span>{{this.burger_name}} <button>Devour!</button></span></li>
+                       <li><span>{{this.burger_name}} <button value="{{this.id}}" class="devour">Devour!</button></span></li>
                     {{/unless}}
                 {{/each}}
             </ul>
@@ -21,4 +21,47 @@
             </ul>
         </div>
     </div>
+    <div class="row">
+        <form>
+            <div class="form-group">
+                <label for="newburger">Add New Burger</label>
+                <input type="text" class="form-control" id="newburger">
+            </div>
+            <br><br>
+            <input type="submit" id="submit" value="Submit">
+        </form>
+    </div>
 </div>
+
+<script>
+    $('#submit').on('click',function (event) {
+
+        event.preventDefault();
+        let burger_name = {burger_name: $('#newburger').val().trim()};
+        console.log(burger_name);
+
+        $.post('/',burger_name, function (data) {
+            // console.log(data);
+            location.reload();
+        })
+
+        $('#newburger').val('');
+        // location.reload();
+    })
+
+    $('.devour').on('click', function (event) {
+        event.preventDefault();
+        let id = {id : parseInt($(this).attr('value'))};
+        console.log(id);
+        $.ajax('/', {
+            type: 'PUT',
+            data: id,
+        }).then(function () {
+            console.log("ate the burger");
+            location.reload();
+        })
+
+    })
+
+
+</script>

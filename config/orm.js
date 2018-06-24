@@ -10,16 +10,23 @@ let orm = {
     },
 
     insertOne: function (table, name, cb) {
-        let query = `INSERT INTO ${table} (burger_name) VALUES(${name})`;
+        let query = `INSERT INTO ${table} (burger_name) values ('${name}')`;
         connection.query(query, function (err, res) {
+            if (err) {
+                throw err;
+            }
            cb(res);
         });
     } ,
 
     updateOne: function (table, id, cb) {
-        let query = `UPDATE ${table} SET devoured = true WHERE id = ${id}`;
+        let query = `UPDATE ${table} SET devoured = 1 WHERE id = ${id}`;
         connection.query(query, function (err, res) {
+            console.log(`result from query ${res}`);
             cb(res);
         });
     },
 };
+
+module.exports = orm;
+

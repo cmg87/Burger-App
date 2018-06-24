@@ -16,8 +16,9 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-    let burger = req.body.burger_name;
-    burger.insertOne(burger, function (data) {
+    let newburger = req.body.burger_name;
+    console.log(newburger);
+    burger.insertOne(newburger, function (data) {
         let obj = {
             burgers: data
         };
@@ -25,22 +26,19 @@ router.post("/", function(req, res) {
     });
 });
 
-router.put("/", function(req, res) {
-    var condition = "id = " + req.params.id;
-
-    console.log("condition", condition);
-
-    cat.update({
-        sleepy: req.body.sleepy
-    }, condition, function(result) {
-        if (result.changedRows == 0) {
-            // If no rows were changed, then the ID must not exist, so 404
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
-    });
+router.put('/', function (req,res) {
+    let id = req.body.id;
+    console.log(`${id} at controller`);
+    burger.updateOne(id,function (data) {
+        let obj = {
+            burgers :data,
+        };
+        res.render('index', obj);
+    })
 });
 
 // Export routes for server.js to use.
 module.exports = router;
+
+
+// need to work on the put statement to update the value of devoured to true and send back data also add that ajax and jquery to html
